@@ -1,11 +1,8 @@
-import ShowCreators from "./pages/ShowCreators";
+import { RouterProvider } from "react-router-dom";
+import router from "./Router";
 
 function App() {
-  return (
-    <>
-      <ShowCreators />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

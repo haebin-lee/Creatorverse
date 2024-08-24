@@ -1,4 +1,8 @@
+import { useParams, useSearchParams } from "react-router-dom";
+
 function ViewCreator() {
-  return <></>;
+  const { id } = useParams();
+
+  return <>View Creator: {id}</>;
 }
 export default ViewCreator;

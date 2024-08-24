@@ -1,17 +1,42 @@
+import { useEffect, useState } from "react";
+import { supabase } from "../client";
 import CreatorCard from "../components/CreatorCard";
+import { Link } from "react-router-dom";
+export interface Creator {
+  id: number;
+  name: string;
+  url: string;
+  description: string;
+  imageUrl?: string;
+}
 
 function ShowCreators() {
+  const [creators, setCreators] = useState<Creator[]>([]);
+  useEffect(() => {
+    const fetchCreators = async () => {
+      const { data, error } = await supabase.from("creators").select("*");
+      setCreators(data as Creator[]);
+    };
+    fetchCreators();
+  }, []);
+
   return (
     <>
       <h1>CREATORVERSE</h1>
       <div>
         <button>View Creators</button>
-        <button>Add a Creator</button>
+        <button>
+          <Link to={`/add`}>Add a creator</Link>
+        </button>
       </div>
       <div>
-        {profiles.map((profile) => (
-          <CreatorCard {...profile} />
-        ))}
+        <ul>
+          {creators.map((profile) => (
+            <li key={profile.id}>
+              <CreatorCard {...profile} />
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );

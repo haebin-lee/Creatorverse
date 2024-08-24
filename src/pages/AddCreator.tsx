@@ -1,9 +1,26 @@
 import { useForm } from "react-hook-form";
+import { supabase } from "../client";
+import { useNavigate } from "react-router-dom";
+interface CreatorForm {
+  name: string;
+  url: string;
+  description: string;
+}
 
 function AddCreator() {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<CreatorForm>();
+  const onSubmit = (data: CreatorForm) => {
+    addCreator(data);
+  };
+
+  const addCreator = async ({ name, url, description }) => {
+    await supabase.from("creators").insert({
+      name: name,
+      url: url,
+      description: description,
+    });
+    navigate("/");
   };
   return (
     <>

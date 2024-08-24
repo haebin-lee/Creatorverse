@@ -3,15 +3,22 @@ import ShowCreators from "./pages/ShowCreators";
 import AddCreator from "./pages/AddCreator";
 import ViewCreator from "./pages/ViewCreator";
 import EditCreator from "./pages/EditCreator";
+import App from "./App";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ShowCreators />,
-  },
-  {
-    path: "add",
-    element: <AddCreator />,
+    element: <App />,
+    children: [
+      {
+        path: "creators",
+        element: <ShowCreators />,
+      },
+      {
+        path: "add",
+        element: <AddCreator />,
+      },
+    ],
   },
   {
     path: "/creators/:id",

@@ -26,8 +26,7 @@ function AddCreator() {
     <>
       <div
         style={{
-          margin: "10rem 5rem",
-          padding: "10rem",
+          padding: "10rem 30rem 0rem 30rem",
           display: "flex",
           flexDirection: "column",
           gap: "2rem",
@@ -58,9 +57,10 @@ function AddCreator() {
               maxLength: 100,
             })}
             placeholder="Description"
+            style={{ height: "200px" }}
           />
           <div
-            style={{ display: "flex", gap: "20px", justifyContent: "flex-end" }}
+            style={{ display: "flex", gap: "20px", justifyContent: "center" }}
           >
             <button
               className="pico-background-orange-350"

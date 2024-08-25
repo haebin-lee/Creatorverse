@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import EditIcon from "../assets/icon/edit.png";
 import InfoIcon from "../assets/icon/info.png";
 import URLIcon from "../assets/icon/url.png";
 import Profile2 from "../assets/woman2.jpg";
+import IconButton from "../shared/components/IconButton";
 
 interface Props {
   id: number;
@@ -32,22 +32,6 @@ function CreatorCard({ id, name, url, description, imageUrl }: Props) {
         </div>
       </div>
     </div>
-  );
-}
-
-function IconButton({
-  to,
-  icon,
-  label,
-}: {
-  to: string;
-  icon: string;
-  label?: string;
-}) {
-  return (
-    <Link to={to} style={styles.button}>
-      <img src={icon} alt={label || "icon"} style={styles.icon} />
-    </Link>
   );
 }
 

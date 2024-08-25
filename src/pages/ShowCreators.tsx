@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../client";
 import CreatorCard from "../components/CreatorCard";
+import { MagnifyingGlassCircleIcon } from "@heroicons/react/16/solid";
 export interface Creator {
   id: number;
   name: string;
@@ -13,7 +14,7 @@ function ShowCreators() {
   const [creators, setCreators] = useState<Creator[]>([]);
   useEffect(() => {
     const fetchCreators = async () => {
-      const { data } = await supabase.from("creators").select("*");
+      const { data, error } = await supabase.from("creators").select("*");
       setCreators(data as Creator[]);
     };
     fetchCreators();
@@ -38,7 +39,7 @@ const styles = {
     display: "grid",
     gridTemplateColumns: "repeat(2, minmax(300px, 1fr))",
     width: "70%",
-    gap: "50px",
+    gap: "20px",
     margin: "0 auto",
   },
 };

@@ -26,7 +26,7 @@ function CreatorCard({ id, name, url, description, imageUrl }: Props) {
           />
         </div>
         <h1>{name}</h1>
-        <div>
+        <div style={{ display: "flex", gap: "10px", fontSize: "24px" }}>
           <img src={URLIcon} alt="url icon" style={styles.icon} />
           <p>{url}</p>
         </div>

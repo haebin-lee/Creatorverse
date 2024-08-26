@@ -26,7 +26,9 @@ function AddCreator() {
     <>
       <div
         style={{
-          padding: "10rem 30rem 0rem 30rem",
+          margin: "10rem auto",
+          minHeight: "50vh",
+          maxWidth: "50vw",
           display: "flex",
           flexDirection: "column",
           gap: "2rem",
@@ -54,7 +56,6 @@ function AddCreator() {
           <textarea
             {...register("description", {
               required: true,
-              maxLength: 100,
             })}
             placeholder="Description"
             style={{ height: "200px" }}

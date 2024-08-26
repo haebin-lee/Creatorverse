@@ -63,6 +63,18 @@ function ViewCreator() {
             </div>
           </div>
         </div>
+        <div style={{ display: "flex", gap: "20px", justifyContent: "center" }}>
+          <button style={styles.button} onClick={() => navigate("/")}>
+            Main
+          </button>
+          <button
+            className="pico-background-grey-200"
+            style={styles.button}
+            onClick={() => navigate("/creators")}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </>
   );
@@ -73,10 +85,12 @@ const styles = {
   card: {
     display: "flex",
     minWidth: "500px",
-    padding: "30px",
+    padding: "20px",
     border: "1px solid #ccc",
-    borderRadius: "5px",
+    borderRadius: "10px",
     minHeight: "300px",
+    overflow: "hidden",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     gap: "40px",
   },
   profileImage: {
@@ -98,17 +112,15 @@ const styles = {
     gap: "20px",
     justifyContent: "flex-end",
   },
-  button: {
-    cursor: "pointer",
-    backgroundColor: "transparent",
-    border: "none",
-    padding: 0,
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   icon: {
     width: "1.5rem",
     height: "1.5rem",
+  },
+  button: {
+    color: "white",
+    border: "none",
+    width: "100px",
+    height: "50px",
+    borderRadius: "5px",
   },
 };

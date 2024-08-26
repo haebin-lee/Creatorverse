@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../client";
 import CreatorCard from "../components/CreatorCard";
+import { useNavigate } from "react-router-dom";
 export interface Creator {
   id: number;
   name: string;
@@ -10,6 +11,7 @@ export interface Creator {
 }
 
 function ShowCreators() {
+  const navigate = useNavigate();
   const [creators, setCreators] = useState<Creator[]>([]);
   useEffect(() => {
     const fetchCreators = async () => {
@@ -42,6 +44,15 @@ function ShowCreators() {
             </li>
           ))}
         </ul>
+        <div style={{ display: "flex", gap: "20px", justifyContent: "center" }}>
+          <button
+            className="pico-background-grey-200"
+            style={styles.button}
+            onClick={() => navigate("/")}
+          >
+            Main
+          </button>
+        </div>
       </div>
     </>
   );
@@ -53,8 +64,15 @@ const styles = {
     display: "grid",
     gridTemplateColumns: "repeat(2, minmax(300px, 1fr))",
     width: "70%",
-    gap: "20px",
+    gap: "10px",
     margin: "0 auto",
     zIndex: 100,
+  },
+  button: {
+    color: "white",
+    border: "none",
+    width: "100px",
+    height: "50px",
+    borderRadius: "5px",
   },
 };

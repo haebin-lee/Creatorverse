@@ -38,13 +38,15 @@ function EditCreator() {
         description: description,
       })
       .eq("id", id);
-    navigate("/");
+    navigate("/creators");
   };
   return (
     <>
       <div
         style={{
-          padding: "10rem 30rem 0rem 30rem",
+          margin: "10rem auto",
+          minHeight: "50vh",
+          maxWidth: "50vw",
           display: "flex",
           flexDirection: "column",
           gap: "2rem",
@@ -72,7 +74,6 @@ function EditCreator() {
           <textarea
             {...register("description", {
               required: true,
-              maxLength: 100,
             })}
             placeholder="Description"
             style={{ height: "200px" }}
@@ -93,7 +94,11 @@ function EditCreator() {
             >
               Delete
             </button>
-            <button className="pico-background-grey-200" style={styles.button}>
+            <button
+              className="pico-background-grey-200"
+              style={styles.button}
+              onClick={() => navigate("/creators")}
+            >
               Cancel
             </button>
           </div>

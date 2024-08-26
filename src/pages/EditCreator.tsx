@@ -26,7 +26,7 @@ function EditCreator() {
   const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     await supabase.from("creators").delete().eq("id", id);
-    navigate("/");
+    navigate("/creators");
   };
 
   const updateCreator = async ({ name, url, description }: CreatorForm) => {

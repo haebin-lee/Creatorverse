@@ -20,7 +20,7 @@ function AddCreator() {
       url: url,
       description: description,
     });
-    navigate("/");
+    navigate("/creators");
   };
   return (
     <>

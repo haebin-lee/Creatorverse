@@ -1,82 +1,115 @@
-import EditIcon from "../assets/icon/edit.png";
-import InfoIcon from "../assets/icon/info.png";
-import URLIcon from "../assets/icon/url.png";
-import Profile2 from "../assets/woman2.jpg";
-import IconButton from "../shared/components/IconButton";
-
-interface Props {
-  id: number;
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { supabase } from "../client";
+interface CreatorForm {
   name: string;
   url: string;
   description: string;
-  imageUrl?: string;
 }
 
 function EditCreator() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { register, handleSubmit, reset } = useForm<CreatorForm>();
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase.from("creators").select().eq("id", id);
+      reset(data ? data[0] : null);
+    })();
+  }, [id, reset]);
+
+  const onValid = (data: CreatorForm) => {
+    updateCreator(data);
+  };
+  const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    await supabase.from("creators").delete().eq("id", id);
+    navigate("/");
+  };
+
+  const updateCreator = async ({ name, url, description }: CreatorForm) => {
+    await supabase
+      .from("creators")
+      .update({
+        name: name,
+        url: url,
+        description: description,
+      })
+      .eq("id", id);
+    navigate("/");
+  };
   return (
-    <div style={styles.card}>
-      <div style={styles.profileImage}></div>
-      <div style={styles.cardContent}>
-        <div style={styles.buttonWrapper}>
-          <IconButton to={`/creators/${id}`} icon={InfoIcon} label="detail" />
-          <IconButton
-            to={`/creators/${id}/edit`}
-            icon={EditIcon}
-            label="edit"
+    <>
+      <div
+        style={{
+          padding: "10rem 30rem 0rem 30rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "2rem",
+        }}
+      >
+        <h1 style={{ textAlign: "center" }}>Update a creator profile!</h1>
+        <form
+          onSubmit={handleSubmit(onValid)}
+          style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+        >
+          <input
+            {...register("name", {
+              required: true,
+              maxLength: 20,
+            })}
+            placeholder="Name"
           />
-        </div>
-        <h1>{name}</h1>
-        <div style={{ display: "flex", gap: "10px", fontSize: "24px" }}>
-          <img src={URLIcon} alt="url icon" style={styles.icon} />
-          <p>{url}</p>
-        </div>
+          <input
+            {...register("url", {
+              required: true,
+              pattern: /^(http|https):\/\/[^ "]+$/,
+            })}
+            placeholder="URL"
+          />
+          <textarea
+            {...register("description", {
+              required: true,
+              maxLength: 100,
+            })}
+            placeholder="Description"
+            style={{ height: "200px" }}
+          />
+          <div
+            style={{ display: "flex", gap: "20px", justifyContent: "center" }}
+          >
+            <button
+              className="pico-background-orange-350"
+              style={styles.button}
+            >
+              Update
+            </button>
+            <button
+              className="pico-background-red-450"
+              style={styles.button}
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+            <button className="pico-background-grey-200" style={styles.button}>
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+    </>
   );
 }
 
-export default EditCreator;
-
 const styles = {
-  card: {
-    display: "flex",
-    minWidth: "500px",
-    padding: "30px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    minHeight: "300px",
-    gap: "40px",
-  },
-  profileImage: {
-    width: "30%",
-    minHeight: "240px",
-    backgroundImage: `url(${Profile2})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    borderRadius: "2rem",
-  },
-  cardContent: {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: "10px",
-    flex: "1",
-  },
-  buttonWrapper: {
-    display: "flex",
-    gap: "20px",
-    justifyContent: "flex-end",
-  },
   button: {
-    cursor: "pointer",
-    backgroundColor: "transparent",
+    color: "white",
     border: "none",
-    padding: 0,
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  icon: {
-    width: "1.5rem",
-    height: "1.5rem",
+    width: "100px",
+    height: "50px",
+    borderRadius: "5px",
   },
 };
+export default EditCreator;

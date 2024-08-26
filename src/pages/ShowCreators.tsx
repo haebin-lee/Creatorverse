@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../client";
 import CreatorCard from "../components/CreatorCard";
-import { MagnifyingGlassCircleIcon } from "@heroicons/react/16/solid";
 export interface Creator {
   id: number;
   name: string;
@@ -14,7 +13,7 @@ function ShowCreators() {
   const [creators, setCreators] = useState<Creator[]>([]);
   useEffect(() => {
     const fetchCreators = async () => {
-      const { data, error } = await supabase.from("creators").select("*");
+      const { data } = await supabase.from("creators").select("*");
       setCreators(data as Creator[]);
     };
     fetchCreators();
@@ -22,13 +21,28 @@ function ShowCreators() {
 
   return (
     <>
-      <ul style={styles.cardContainer}>
-        {creators.map((profile) => (
-          <li key={profile.id} style={{ listStyleType: "none" }}>
-            <CreatorCard {...profile} />
-          </li>
-        ))}
-      </ul>
+      <div
+        style={{
+          padding: "10rem 0",
+          display: "flex",
+          flexDirection: "column",
+          gap: "2rem",
+        }}
+      >
+        <h1 style={{ textAlign: "center" }}>Registered creators:</h1>
+        {creators.length === 0 && (
+          <h4 style={{ textAlign: "center" }} className="pico-color-red-600">
+            No creators found
+          </h4>
+        )}
+        <ul style={styles.cardContainer}>
+          {creators.map((profile) => (
+            <li key={profile.id} style={{ listStyleType: "none" }}>
+              <CreatorCard {...profile} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
@@ -41,5 +55,6 @@ const styles = {
     width: "70%",
     gap: "20px",
     margin: "0 auto",
+    zIndex: 100,
   },
 };

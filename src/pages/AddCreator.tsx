@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { supabase } from "../client";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../client";
 interface CreatorForm {
   name: string;
   url: string;
@@ -14,7 +14,7 @@ function AddCreator() {
     addCreator(data);
   };
 
-  const addCreator = async ({ name, url, description }) => {
+  const addCreator = async ({ name, url, description }: CreatorForm) => {
     await supabase.from("creators").insert({
       name: name,
       url: url,
@@ -68,7 +68,13 @@ function AddCreator() {
             >
               Create
             </button>
-            <button className="pico-background-grey-200" style={styles.button}>
+            <button
+              className="pico-background-grey-200"
+              style={styles.button}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               Cancel
             </button>
           </div>

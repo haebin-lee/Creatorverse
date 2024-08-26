@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import IconDelete from "../assets/icon/trash.png";
+import IconEdit from "../assets/icon/edit.png";
 import URLIcon from "../assets/icon/url.png";
 import Profile2 from "../assets/woman2.jpg";
 import { supabase } from "../client";
@@ -25,24 +26,41 @@ function ViewCreator() {
   };
   return (
     <>
-      <div style={styles.card}>
-        <div style={styles.profileImage}></div>
-        <div style={styles.cardContent}>
-          <div style={styles.buttonWrapper}>
-            <IconButton
-              onClick={handleDelete}
-              icon={IconDelete}
-              label="delete"
-            />
-          </div>
-          <h1>{creator?.name}</h1>
-          <div style={{ display: "flex", gap: "10px", fontSize: "24px" }}>
-            <img src={URLIcon} alt="url icon" style={styles.icon} />
-            <p>{creator?.url}</p>
-          </div>
-          <div style={{ display: "flex", gap: "10px", fontSize: "24px" }}>
-            <img src={URLIcon} alt="url icon" style={styles.icon} />
-            <p>{creator?.description}</p>
+      <div
+        style={{
+          padding: "10rem 30rem 0rem 30rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "2rem",
+        }}
+      >
+        <h1 style={{ textAlign: "center" }}>
+          This is {creator?.name}'s profile!
+        </h1>
+        <div style={styles.card}>
+          <div style={styles.profileImage}></div>
+          <div style={styles.cardContent}>
+            <div style={styles.buttonWrapper}>
+              <IconButton
+                onClick={handleDelete}
+                icon={IconDelete}
+                label="delete"
+              />
+              <IconButton
+                to={`/creators/${id}/edit`}
+                icon={IconEdit}
+                label="edit"
+              />
+            </div>
+            <h1>{creator?.name}</h1>
+            <div style={{ display: "flex", gap: "10px", fontSize: "24px" }}>
+              <img src={URLIcon} alt="url icon" style={styles.icon} />
+              <p>{creator?.url}</p>
+            </div>
+            <div style={{ display: "flex", gap: "10px", fontSize: "24px" }}>
+              <img src={URLIcon} alt="url icon" style={styles.icon} />
+              <p>{creator?.description}</p>
+            </div>
           </div>
         </div>
       </div>
